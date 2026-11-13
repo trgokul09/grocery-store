@@ -1,0 +1,31 @@
+# Render Blueprint: one web app (React + Spring Boot in one container) + one PostgreSQL database.
+databases:
+  - name: grocery-db
+    databaseName: grocery
+    user: grocery
+    plan: free            # free DB expires after ~30 days; use "basic-256mb" for real use
+
+services:
+  - type: web
+    name: grocery-app
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free            # if it runs out of memory, change to "starter"
+    healthCheckPath: /api/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase: { name: grocery-db, property: host }
+      - key: DB_PORT
+        fromDatabase: { name: grocery-db, property: port }
+      - key: DB_NAME
+        fromDatabase: { name: grocery-db, property: database }
+      - key: DB_USER
+        fromDatabase: { name: grocery-db, property: user }
+      - key: DB_PASSWORD
+        fromDatabase: { name: grocery-db, property: password }
+      - key: JWT_SECRET
+        generateValue: true
+      - key: APP_OWNER_PASSWORD
+        sync: false       # Render will ask you for this when you create the Blueprint
+      - key: APP_TIMEZONE
+        value: Asia/Kolkata
