@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { Bell, Boxes, ClipboardList, LayoutDashboard, LogOut, Menu, Package, Receipt, ScrollText, ShoppingCart, Timer, Truck, Users, Wallet, RefreshCcw, KeyRound, X, Warehouse } from 'lucide-react'
+import { BarChart3, Bell, Bot, Boxes, Briefcase, ClipboardList, LogOut, Menu, Package, Receipt, ScrollText, ShoppingCart, Timer, Truck, Users, Wallet, RefreshCcw, KeyRound, X, Warehouse } from 'lucide-react'
 import api from '../api'
 import { useAuth } from '../auth.jsx'
 import { Button, Field, Modal, cn, useToast } from './ui.jsx'
+import GroceryGptWidget from './GroceryGptWidget.jsx'
 import { errMsg } from '../utils'
 
 const NAV = [
-  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: ['OWNER', 'MANAGER'] },
+  { to: '/analytics', label: 'Sales Analytics', icon: BarChart3, roles: ['OWNER', 'MANAGER'] },
+  { to: '/grocery-gpt', label: 'GroceryGPT AI', icon: Bot, roles: ['OWNER', 'MANAGER', 'STAFF'] },
   { to: '/pos', label: 'POS Billing', icon: ShoppingCart, roles: ['OWNER', 'MANAGER', 'STAFF'] },
   { to: '/sales', label: 'Sales', icon: Receipt, roles: ['OWNER', 'MANAGER', 'STAFF'] },
   { to: '/products', label: 'Products', icon: Package, roles: ['OWNER', 'MANAGER', 'STAFF'] },
@@ -17,7 +19,8 @@ const NAV = [
   { to: '/reorder', label: 'Smart Reorder', icon: RefreshCcw, roles: ['OWNER', 'MANAGER'] },
   { to: '/expenses', label: 'Expenses', icon: Wallet, roles: ['OWNER', 'MANAGER', 'STAFF'] },
   { to: '/shifts', label: 'Shifts', icon: Timer, roles: ['OWNER', 'MANAGER', 'STAFF'] },
-  { to: '/users', label: 'Staff', icon: Users, roles: ['OWNER'] },
+  { to: '/employees', label: 'HR & Payroll', icon: Briefcase, roles: ['OWNER', 'MANAGER', 'STAFF'] },
+  { to: '/users', label: 'Staff Logins', icon: Users, roles: ['OWNER'] },
   { to: '/audit', label: 'Audit Log', icon: ScrollText, roles: ['OWNER'] },
 ]
 
@@ -112,6 +115,7 @@ export default function Layout() {
         <button className="flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-medium text-slate-500" onClick={() => setDrawer(true)}><Menu className="h-5 w-5" />More</button>
       </nav>
       <ChangePassword open={pwd} onClose={() => setPwd(false)} />
+      <GroceryGptWidget />
     </div>
   )
 }
