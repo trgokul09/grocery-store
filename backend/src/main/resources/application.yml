@@ -31,3 +31,11 @@ app:
     password: ${APP_OWNER_PASSWORD:ChangeMe@123}
   cors:
     allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
+  ai:
+    provider: ${AI_PROVIDER:AUTO}
+    openai-api-key: ${OPENAI_API_KEY:}
+    openai-model: ${OPENAI_MODEL:gpt-4o-mini}
+    claude-api-key: ${ANTHROPIC_API_KEY:}
+    claude-model: ${ANTHROPIC_MODEL:claude-3-5-sonnet-latest}
+    gemini-api-key: ${GEMINI_API_KEY:}
+    gemini-model: ${GEMINI_MODEL:gemini-1.5-flash}
